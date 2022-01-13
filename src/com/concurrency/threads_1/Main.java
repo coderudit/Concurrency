@@ -1,6 +1,6 @@
-package com.concurrency.app;
+package com.concurrency.threads_1;
 
-import static com.concurrency.app2.ThreadColor.*;
+import static com.concurrency.synchronization_2.ThreadColor.*;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package com.concurrency.app2;
+package com.concurrency.synchronization_2;
 
 public class ThreadColor {
     public static final String ANSI_RESET = "\u001B[0m";
