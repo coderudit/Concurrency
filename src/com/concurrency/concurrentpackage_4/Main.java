@@ -3,6 +3,7 @@ package com.concurrency.concurrentpackage_4;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.concurrency.concurrentpackage_4.Main.EOF;
@@ -13,13 +14,32 @@ public class Main {
     public static void main(String[] args) {
         List<String> buffer = new ArrayList<String>();
         ReentrantLock bufferLock = new ReentrantLock();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
         MyProducer producer = new MyProducer(buffer, ThreadColor.ANSI_CYAN, bufferLock);
         MyConsumer consumer1 = new MyConsumer(buffer, ThreadColor.ANSI_BLUE, bufferLock);
         MyConsumer consumer2 = new MyConsumer(buffer, ThreadColor.ANSI_PURPLE, bufferLock);
 
-        new Thread(producer).start();
+        /*new Thread(producer).start();
         new Thread(consumer1).start();
-        new Thread(consumer2).start();
+        new Thread(consumer2).start();*/
+
+        executorService.execute(producer);
+        executorService.execute(consumer1);
+        executorService.execute(consumer2);
+
+        Future<String> future = executorService.submit(() -> {
+            System.out.println(ThreadColor.ANSI_PURPLE + "Called from callable section.");
+            return "This is callable result.";
+        });
+
+        try {
+            System.out.println(future.get());
+        } catch (ExecutionException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        executorService.shutdown();
     }
 }
 
