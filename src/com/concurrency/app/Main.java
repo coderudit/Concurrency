@@ -26,13 +26,19 @@ public class Main {
         myRunnableThread.start();
 
         //Interrupts another thread in between the sleep
-        anotherThread.interrupt();
+        // anotherThread.interrupt();
 
         //Runnable thread 2 with anonymous
         Thread myRunnableThread2 = new Thread(new MyRunnable() {
             @Override
             public void run() {
                 System.out.println(ANSI_BLUE + "Hello again from runnable thread 2.");
+                try {
+                    anotherThread.join();
+                    System.out.println(ANSI_RED + "Another thread terminated. So I am continuing executing.");
+                } catch (InterruptedException e) {
+                    System.out.println(ANSI_RED + "I was interrupted.");
+                }
             }
         });
 
