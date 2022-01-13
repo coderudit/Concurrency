@@ -1,6 +1,6 @@
 package com.concurrency.app;
 
-import static com.concurrency.app.ThreadColor.ANSI_BLUE;
+import static com.concurrency.app2.ThreadColor.ANSI_BLUE;
 
 public class AnotherThread extends Thread{
 
