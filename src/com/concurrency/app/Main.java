@@ -8,6 +8,7 @@ public class Main {
         System.out.println(ANSI_PURPLE + "Hello from the main thread.");
 
         Thread anotherThread = new AnotherThread();
+        anotherThread.setName("anotherThread");
         anotherThread.start();
 
         //Start can be called only once.
@@ -23,6 +24,9 @@ public class Main {
         //Runnable thread
         Thread myRunnableThread = new Thread(new MyRunnable());
         myRunnableThread.start();
+
+        //Interrupts another thread in between the sleep
+        anotherThread.interrupt();
 
         //Runnable thread 2 with anonymous
         Thread myRunnableThread2 = new Thread(new MyRunnable() {
